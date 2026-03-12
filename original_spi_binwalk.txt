@@ -1,0 +1,27 @@
+vast@VAST-MACHINE:~/materials$ binwalk original_spi_dump.bin 
+
+                                                    /home/vast/materials/original_spi_dump.bin
+---------------------------------------------------------------------------------------------------------------------------------------------------
+DECIMAL                            HEXADECIMAL                        DESCRIPTION
+---------------------------------------------------------------------------------------------------------------------------------------------------
+81388                              0x13DEC                            CRC32 polynomial table, little endian
+196608                             0x30000                            uImage firmware image, header size: 64 bytes, data size: 107120 bytes, 
+                                                                      compression: lzma, CPU: ARM, OS: Firmware, image type: OS Kernel Image, load 
+                                                                      address: 0x0, entry point: 0x0, creation time: 2020-09-15 07:53:05, image 
+                                                                      name: ""
+327680                             0x50000                            uImage firmware image, header size: 64 bytes, data size: 1569792 bytes, 
+                                                                      compression: lzma, CPU: ARM, OS: Linux, image type: OS Kernel Image, load 
+                                                                      address: 0x20008000, entry point: 0x20008000, creation time: 2024-05-10 
+                                                                      05:56:55, image name: ""
+2424832                            0x250000                           SquashFS file system, little endian, version: 4.0, compression: xz, inode 
+                                                                      count: 2074, block size: 131072, image size: 5751770 bytes, created: 
+                                                                      2024-05-10 06:01:36
+10158080                           0x9B0000                           JFFS2 filesystem, little endian, nodes: 2362, total size: 5308428 bytes
+15541304                           0xED2438                           JFFS2 filesystem, little endian, nodes: 26, total size: 56276 bytes
+15927408                           0xF30870                           JFFS2 filesystem, little endian, nodes: 4, total size: 128924 bytes
+16385576                           0xFA0628                           JFFS2 filesystem, little endian, nodes: 11, total size: 195044 bytes
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+Analyzed 1 file for 85 file signatures (187 magic patterns) in 25.0 milliseconds
+vast@VAST-MACHINE:~/materials$ 
+

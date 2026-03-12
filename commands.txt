@@ -1,0 +1,127 @@
+vast@VAST-MACHINE:~/materials$ python3 packer.py downgraded_firmware_v2.bin original_spi_unpacked recovery_unpacked
+Building downgraded_firmware_v2.bin (16777216 bytes = 16 MB)
+Partition            Source                                         Offset   DataSize    MaxSlot  Fill%
+----------------------------------------------------------------------------------------------------
+  boot                 original_spi_unpacked/boot                        0x0     196608     196608 100.0%
+  uImage_firmware      original_spi_unpacked/uImage_firmware         0x30000     131072     131072 100.0%
+  uImage_kernel        recovery_unpacked/uImage_kernel               0x50000    1570420    2097152  74.9%
+  squashfs             recovery_unpacked/squashfs                   0x250000    5716954    7733248  73.9%
+  data                 recovery_unpacked/data                       0x9b0000    3803240    6488064  58.6%
+  config               original_spi_unpacked/config                 0xfe0000      65536      65536 100.0%
+  factory              original_spi_unpacked/factory                0xff0000      65536      65536 100.0%
+----------------------------------------------------------------------------------------------------
+
+SUCCESS: downgraded_firmware_v2.bin is exactly 16777216 bytes (16 MB)
+
+All partitions written. Verifying...
+  [OK] Boot area has IPL_ magic
+  [OK] Firmware uImage at 0x30000: 'MVX1##I6g46ec744CM_UBT1501###XVM'
+  [OK] Linux kernel at 0x50000: 'MVX2##I6gd0db123KL_LX409####[BR:' (CRC: VALID)
+  [OK] Hardware revision: I6 (matches your camera)
+  [OK] SquashFS magic at 0x250000
+  [OK] JFFS2 magic at 0x9B0000
+  [OK] CONFIG at 0xFE0000: 24 non-FF bytes
+  [OK] FACTORY at 0xFF0000: 204 non-FF bytes (WiFi MAC/cal)
+
+Firmware is ready to flash: downgraded_firmware_v2.bin
+vast@VAST-MACHINE:~/materials$ python3 unpacker_spi.py original_spi_dump.bin original_spi_unpacked
+Input: original_spi_dump.bin (16777216 bytes, 16.0 MB)
+
+MXPT partition table: 12 entries (6 boot-level, 6 MTD-level)
+
+   #  Type         Name             Offset        End       Size     Size
+  ------------------------------------------------------------------------
+   0  boot-level   IPL                 0x0    0x10000      65536    64 KB
+   1  boot-level   IPL_CUST        0x10000    0x1f000      61440    60 KB
+   2  boot-level   KEY_CUST        0x1f000    0x20000       4096     4 KB
+   3  boot-level   MXPT            0x20000    0x21000       4096     4 KB
+   4  boot-level   UBOOT           0x30000    0x4f000     126976   124 KB
+   5  boot-level   UBOOT_ENV       0x4f000    0x50000       4096     4 KB
+   6  MTD          BOOT                0x0    0x50000     327680   320 KB
+   7  MTD          KERNEL          0x50000   0x250000    2097152   2.0 MB
+   8  MTD          ROOTFS         0x250000   0x9b0000    7733248   7.4 MB
+   9  MTD          DATA           0x9b0000   0xfe0000    6488064   6.2 MB
+  10  MTD          CONFIG         0xfe0000   0xff0000      65536    64 KB
+  11  MTD-special  FACTORY        0xff0000  0x1000000      65536    64 KB
+
+Extracting partitions...
+  Partition                    File     Offset       Size     Non-FF  Notes
+  ------------------------------------------------------------------------------
+  BOOT(pre)                    boot        0x0     196608     193391  
+  BOOT(fw)          uImage_firmware    0x30000     131072     130647  
+  KERNEL              uImage_kernel    0x50000    2097152    1563629  
+  ROOTFS                   squashfs   0x250000    7733248    5732586  
+  DATA                         data   0x9b0000    6488064    4884154  
+  CONFIG                     config   0xfe0000      65536         24  ** SUSPICIOUS - very little data **
+  FACTORY                   factory   0xff0000      65536        204  OK
+  IPL                boot_parts/ipl        0x0      65536      65256  
+  IPL_CUST      boot_parts/ipl_cust    0x10000      61440      61088  
+  KEY_CUST      boot_parts/key_cust    0x1f000       4096       4096  
+  MXPT         boot_parts/mxpt_table    0x20000       4096       1511  
+  UBOOT            boot_parts/uboot    0x30000     126976     126551  
+  UBOOT_ENV    boot_parts/uboot_env    0x4f000       4096       4096  
+
+Done. Extracted 7 partitions to original_spi_unpacked/
+     Extracted 6 boot sub-partitions to original_spi_unpacked/boot_parts/
+
+For packer_v2, use:  python3 unpacker_spi_v3.py SPI_original.bin orignal_SPI_unpacked/
+vast@VAST-MACHINE:~/materials$ python3 unpacker_recovery.py tf_recovery.img recovery_unpacked/
+  uImage_kernel        @ 0x0         size:  1570420 bytes
+  squashfs             @ 0x200000    size:  5716954 bytes
+  data                 @ 0x960000    size:  3803240 bytes
+
+Done. Extracted 3 partitions from tf_recovery.img
+vast@VAST-MACHINE:~/materials$ python3 packer.py downgraded_firmware_v2.bin original_spi_unpacked recovery_unpacked
+Building downgraded_firmware_v2.bin (16777216 bytes = 16 MB)
+Partition            Source                                         Offset   DataSize    MaxSlot  Fill%
+----------------------------------------------------------------------------------------------------
+  boot                 original_spi_unpacked/boot                        0x0     196608     196608 100.0%
+  uImage_firmware      original_spi_unpacked/uImage_firmware         0x30000     131072     131072 100.0%
+  uImage_kernel        recovery_unpacked/uImage_kernel               0x50000    1570420    2097152  74.9%
+  squashfs             recovery_unpacked/squashfs                   0x250000    5716954    7733248  73.9%
+  data                 recovery_unpacked/data                       0x9b0000    3803240    6488064  58.6%
+  config               original_spi_unpacked/config                 0xfe0000      65536      65536 100.0%
+  factory              original_spi_unpacked/factory                0xff0000      65536      65536 100.0%
+----------------------------------------------------------------------------------------------------
+
+SUCCESS: downgraded_firmware_v2.bin is exactly 16777216 bytes (16 MB)
+
+All partitions written. Verifying...
+  [OK] Boot area has IPL_ magic
+  [OK] Firmware uImage at 0x30000: 'MVX1##I6g46ec744CM_UBT1501###XVM'
+  [OK] Linux kernel at 0x50000: 'MVX2##I6gd0db123KL_LX409####[BR:' (CRC: VALID)
+  [OK] Hardware revision: I6 (matches your camera)
+  [OK] SquashFS magic at 0x250000
+  [OK] JFFS2 magic at 0x9B0000
+  [OK] CONFIG at 0xFE0000: 24 non-FF bytes
+  [OK] FACTORY at 0xFF0000: 204 non-FF bytes (WiFi MAC/cal)
+
+Firmware is ready to flash: downgraded_firmware_v2.bin
+vast@VAST-MACHINE:~/materials$ binwalk downgraded_firmware.bin 
+
+                                       /home/vast/materials/downgraded_firmware.bin
+---------------------------------------------------------------------------------------------------------------------------
+DECIMAL                            HEXADECIMAL                        DESCRIPTION
+---------------------------------------------------------------------------------------------------------------------------
+81388                              0x13DEC                            CRC32 polynomial table, little endian
+196608                             0x30000                            uImage firmware image, header size: 64 bytes, data 
+                                                                      size: 107120 bytes, compression: lzma, CPU: ARM, OS: 
+                                                                      Firmware, image type: OS Kernel Image, load address: 
+                                                                      0x0, entry point: 0x0, creation time: 2020-09-15 
+                                                                      07:53:05, image name: ""
+327680                             0x50000                            uImage firmware image, header size: 64 bytes, data 
+                                                                      size: 1570356 bytes, compression: lzma, CPU: ARM, 
+                                                                      OS: Linux, image type: OS Kernel Image, load 
+                                                                      address: 0x20008000, entry point: 0x20008000, 
+                                                                      creation time: 2019-08-29 12:05:48, image name: ""
+2424832                            0x250000                           SquashFS file system, little endian, version: 4.0, 
+                                                                      compression: xz, inode count: 2068, block size: 
+                                                                      131072, image size: 5716954 bytes, created: 
+                                                                      2019-08-29 12:10:36
+10158080                           0x9B0000                           JFFS2 filesystem, little endian, nodes: 2156, total 
+                                                                      size: 3803240 bytes
+---------------------------------------------------------------------------------------------------------------------------
+
+Analyzed 1 file for 85 file signatures (187 magic patterns) in 51.0 milliseconds
+vast@VAST-MACHINE:~/materials$ 
+

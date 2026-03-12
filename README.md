@@ -22,6 +22,7 @@ This project takes the **kernel, rootfs, and data partitions from the 2019 recov
 | `recovery_unpacked/` | Extracted partitions from the TF recovery image |
 | `original_spi_binwalk.txt` | Binwalk analysis of the original SPI dump |
 | `commands.txt` | Full terminal log of the unpack/pack process |
+| `hacks/` | MJSXJ05CM-hacks release and source repo (zip archives) |
 | `debug_scripts/` | Diagnostic scripts for MXPT analysis and boot verification |
 | `Pasted image.png` | Reference image |
 
@@ -102,6 +103,20 @@ The packer fills unused space with `0xFF` (erased SPI flash state) and runs veri
 
 Flash the resulting `downgraded_firmware.bin` to your camera's SPI chip.
 
+### Step 5: Install Hacks (RTSP, ONVIF, Motor Control, etc.)
+
+After flashing the downgraded firmware, you can install the [MJSXJ05CM-hacks](https://github.com/zry98/MJSXJ05CM-hacks) package to get RTSP streaming, ONVIF support, motor control, and more. The hacks release and source repo are included in the `hacks/` directory as zip archives.
+
+1. Unzip `hacks/hacks release from zry98.zip` — inside you'll find a `hacks` and `manu_test` directories
+2. Edit `hacks/installer/config.sh` with your settings for WIFI
+3. Copy the **contents** of the `hacks` and `manu_test` directories to the root of a FAT32-formatted SD card
+4. Power off the camera and insert the SD card
+5. Power on the camera — the LED will be solid yellow while the hacks are being installed (several minutes)
+6. When the camera starts rotating, installation is done
+7. Find the camera's IP address on your router — RTSP stream will be available, ONVIF on the configured port
+
+> The `hacks/hacks repo from zry98.zip` archive contains the full source repository for reference.
+
 ## Debug Scripts
 
 The `debug_scripts/` directory contains diagnostic tools useful during development or troubleshooting:
@@ -143,7 +158,7 @@ This project was inspired by and builds upon the research from:
 
 - **[Mi Home Security Camera MJSXJ02CM Technical Teardown & UART Boot Analysis](https://medium.com/@aaronjjose/mi-home-security-camera-mjsxj02cm-technical-teardown-uart-boot-analysis-6eb188a45678)** — Technical teardown, UART boot analysis, and firmware exploration of a similar Xiaomi camera
 - **[Xiaomi Smart Camera: Recovering Firmware and Backdooring](https://sungurlabs.github.io/2021/07/14/Xiaomi-Smart-Camera-Recovering-Firmware-and-Backdooring.html)** — Detailed writeup on recovering and modifying Xiaomi camera firmware via SPI flash dumps and TF recovery
-- **[mjsxj05cm-hacks](https://github.com/cmiguelcabral/mjsxj05cm-hacks/tree/dev)** by cmiguelcabral — Hacks and modifications for the MJSXJ05CM camera
+- **[mjsxj05cm-hacks](https://github.com/zry98/MJSXJ05CM-hacks)** by cmiguelcabral and zry98 — Hacks and modifications for the MJSXJ05CM camera
 
 ## License
 

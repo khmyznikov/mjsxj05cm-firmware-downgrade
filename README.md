@@ -45,9 +45,18 @@ Offset      Size     Partition         Source (in downgraded firmware)
 If you just want to flash the included downgraded firmware:
 
 1. **Disassemble** the camera — the SPI chip is on the back of the main board, so the camera needs to be nearly fully taken apart. Unscrew and shift the camera lens out of the way to get the SOIC clip/clamps on the chip properly.
-2. **Read** your camera's SPI flash using a CH341A programmer *(black one will work, don't listen the voltage issues on the internet)*
-3. **Back up** the original dump — you'll need it if anything goes wrong
-4. **Flash** `downgraded_firmware.bin` to the SPI chip
+
+**!!MAKE SURE YOU REMOVED THE SD CARD BEFORE ASSEMBLY/DISASSEMBLY!!**
+![PXL_20260124_221215632](https://github.com/user-attachments/assets/7669b0c3-48a1-430a-9415-dd91e2761edf)
+![PXL_20260124_221229836](https://github.com/user-attachments/assets/0e035bf6-c495-4006-90d4-fd355e1af78c)
+![PXL_20260124_221307768](https://github.com/user-attachments/assets/f1e555b5-b514-4053-867a-61459a32fa9c)
+
+4. **Read** your camera's SPI flash using a CH341A programmer *(black one will work, don't listen the voltage issues on the internet)*
+<img width="978" height="686" alt="Pasted image" src="https://github.com/user-attachments/assets/35858ba6-fa3f-4934-a77b-fa675ffad632" />
+
+6. **Back up** the original dump — you'll need it if anything goes wrong
+7. **Clear** chip to delete old firmware
+8. **Flash** `downgraded_firmware.bin` to the SPI chip
 
 > **Important:** The included `downgraded_firmware.bin` contains the `config` and `factory` partitions from my specific camera. The `factory` partition holds your WiFi MAC address and calibration data. If you flash it as-is, your camera will work but will have my MAC address. To preserve your own device identity, follow the full steps below to build your own firmware from your SPI dump.
 

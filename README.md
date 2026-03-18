@@ -117,6 +117,10 @@ After flashing the downgraded firmware, you can install the [MJSXJ05CM-hacks](ht
 
 > The `hacks/hacks repo from zry98.zip` archive contains the full source repository for reference.
 
+### Step 6: Home Assistant Integration
+
+See [HomeAssistant.md](HomeAssistant.md) for setting up the camera in Home Assistant with RTSP live preview (WebRTC) and PTZ controls (ONVIF).
+
 ## Debug Scripts
 
 The `debug_scripts/` directory contains diagnostic tools useful during development or troubleshooting:
